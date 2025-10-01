@@ -1,0 +1,29 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Create a 3D snake-like spiral
+theta = np.linspace(0, 8*np.pi, 2000)   # spiral angle
+z = np.linspace(-2, 2, 2000)            # vertical movement
+r = 1 + 0.3*np.sin(5*theta)             # radius with wobble
+x = r * np.cos(theta)
+y = r * np.sin(theta)
+
+# Plot
+fig = plt.figure(figsize=(10,6), facecolor="black")
+ax = fig.add_subplot(111, projection="3d", facecolor="black")
+
+# Neon gradient colors
+colors = plt.cm.plasma(np.linspace(0,1,len(theta)))
+
+for i in range(len(theta)-1):
+    ax.plot(x[i:i+2], y[i:i+2], z[i:i+2], color=colors[i], linewidth=2.5, alpha=0.9)
+
+# Glow effect by plotting thicker transparent lines
+for glow in range(6, 0, -1):
+    ax.plot(x, y, z, color="cyan", linewidth=glow*2, alpha=0.02*glow)
+
+# Hide axes
+ax.set_axis_off()
+ax.view_init(elev=20, azim=120)
+
+plt.show()
